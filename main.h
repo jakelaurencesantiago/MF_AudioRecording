@@ -17,10 +17,10 @@ DWORD   CalculateMaxAudioDataSize(IMFMediaType* pMediaType, DWORD cbHeader, DWOR
 
 // wav - PCM header
 struct WAV_HEADER {
-	UINT8 riff_id[4] = { 'R','I','F','F' };
+	const UINT8 riff_id[4] = { 'R','I','F','F' };
 	UINT32 file_size;
-	UINT8 wave_id[4] = { 'W','A','V','E' };
-	UINT8 fmt_id[4] = { 'f','m','t',' ' };
+	const UINT8 wave_id[4] = { 'W','A','V','E' };
+	const UINT8 fmt_id[4] = { 'f','m','t',' ' };
 	UINT32 block_size = 16;
 	UINT16 audio_format = 1;
 	UINT16 channels = 1;
@@ -28,13 +28,12 @@ struct WAV_HEADER {
 	UINT32 byte_per_sec = 44100;
 	UINT16 byte_per_block = 2;
 	UINT16 bits_per_sample = 16;
-	UINT8 data_id[4] = { 'd','a','t','a' };
+	const UINT8 data_id[4] = { 'd','a','t','a' };
 	UINT32 data_size;
 };
 
 
-template <class T> void SafeRelease(T** ppT)
-{
+template <class T> void SafeRelease(T** ppT) {
 	if (*ppT) {
 		(*ppT)->Release();
 		*ppT = NULL;
